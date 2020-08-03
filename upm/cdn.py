@@ -4,7 +4,7 @@
 
 from qiniu import Auth, put_file, etag
 from os import path
-from config import config
+from upm.config import config
 
 q = Auth(config['access_key'], config['secret_key'])
 

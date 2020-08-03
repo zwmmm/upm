@@ -1,14 +1,13 @@
-import npm
 import click
 import shutil
 from os import path, getcwd
 from shutil import copyfile
-from cdn import upload_cdn
-import config as config_obj
+from upm.cdn import upload_cdn
+from upm import config as config_obj, npm
 
 
 @click.group(chain=True)
-def upm():
+def cli():
     """
     命令行工具
     :return:
@@ -16,7 +15,7 @@ def upm():
     config_obj.init()
 
 
-@upm.command()
+@cli.command()
 @click.argument('name')
 def install(name):
     """
@@ -50,28 +49,28 @@ def install(name):
         shutil.rmtree('package')
 
 
-@upm.command('config')
+@cli.command('config')
 def config():
     pass
 
 
-@upm.command('set')
+@cli.command('set')
 @click.argument('key', type=click.Choice(['access_key', 'secret_key', 'bucket_name']))
 @click.argument('value')
 def config_set(key, value):
     config_obj.set_config(key, value)
 
 
-@upm.command('delete')
+@cli.command('delete')
 @click.argument('key', type=click.Choice(['access_key', 'secret_key', 'bucket_name']))
 def config_delete(key):
     config_obj.delete_config(key)
 
 
-@upm.command('list')
+@cli.command('list')
 def config_list():
     config_obj.show_config()
 
 
 if __name__ == '__main__':
-    upm()
+    cli()
