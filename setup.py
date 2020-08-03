@@ -1,8 +1,8 @@
 from setuptools import setup, find_packages
 
-VERSION = '0.1'
+VERSION = '0.2'
 setup(
-    name='upm',
+    name='umdpm',
     version=VERSION,
     description='umd 包管理',
     keywords='swagdog',

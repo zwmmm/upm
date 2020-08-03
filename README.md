@@ -3,7 +3,7 @@
 ## 下载
 
 ```bash
-pip install upm
+pip install umdpm
 ```
 
 ## 使用

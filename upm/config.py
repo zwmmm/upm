@@ -8,9 +8,9 @@ config_path = path.join(
 )
 
 config = {
-    'access_key': 'KMdYDpR75LFaD-MhdPvZHpzVx64bwd06WK5pO-OP',
-    'secret_key': '--4r71oNnD7p0qvk_zYdGs-FT1HhyqCnIDB2gtKV',
-    'bucket_name': 'hiwayne'
+    'access_key': '',
+    'secret_key': '',
+    'bucket_name': ''
 }
 
 
