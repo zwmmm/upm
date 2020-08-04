@@ -1,12 +1,7 @@
-import sys
-from os import path, getcwd
-
-BASE_DIR = path.dirname(path.dirname(path.abspath(__file__)))
-sys.path.append(BASE_DIR)
-
 import click
 import shutil
 import inquirer
+from os import path, getcwd
 from shutil import copyfile
 from upm.cdn import upload_cdn
 from upm import config as config_obj, npm
