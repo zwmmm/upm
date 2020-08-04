@@ -1,6 +1,12 @@
+import sys
+from os import path, getcwd
+
+BASE_DIR = path.dirname(path.dirname(path.abspath(__file__)))
+sys.path.append(BASE_DIR)
+
 import click
 import shutil
-from os import path, getcwd
+import inquirer
 from shutil import copyfile
 from upm.cdn import upload_cdn
 from upm import config as config_obj, npm
@@ -30,23 +36,33 @@ def install(name):
         click.secho('❎ 未找到{}'.format(name), fg='red')
         exit(1)
 
-    click.secho('\n'.join(files), fg='green')
-    filepath = click.prompt('输入需要下载的文件')
-    filename = path.basename(filepath)
+    questions = [
+        inquirer.Checkbox(
+            'filename',
+            message='选择需要下载的文件',
+            choices=files
+        ),
+        inquirer.List(
+            'cdn',
+            message='是否上传cdn?[y/n]',
+            choices=['yes', 'no']
+        )
+    ]
+    answers = inquirer.prompt(questions)
 
-    try:
+    filenames = answers['filename']
+    for filename in filenames:
+        filepath = path.join('./package', filename)
+        name = path.basename(filename)
         copyfile(
             filepath,
-            path.join(getcwd(), filename)
+            path.join(getcwd(), name)
         )
-        click.confirm('是否上传cdn?', default=False, abort=True)
-        upload_cdn(filepath)
-        click.secho('✅ 上传文件成功', fg='blue')
-    except IOError:
-        click.secho('❎ 文件不存在', fg='red')
-        exit(1)
-    finally:
-        shutil.rmtree('package')
+        if answers['cdn'] == 'yes':
+            upload_cdn(filepath)
+            click.secho(f'✅ {name}上传成功', fg='blue')
+
+    shutil.rmtree('package')
 
 
 @cli.command('config')

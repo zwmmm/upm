@@ -51,7 +51,7 @@ def show_files(path='./package'):
     for root, dirs, files in os.walk(path):
         for file in files:
             file_list.append(
-                os.path.join(root, file)
+                os.path.join(root[10:], file)
             )
     return file_list
 

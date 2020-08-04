@@ -14,7 +14,8 @@ setup(
     zip_safe=True,
     install_requires=[
         'qiniu',
-        'click'
+        'click',
+        'inquirer'
     ],
     entry_points={
         'console_scripts': [
